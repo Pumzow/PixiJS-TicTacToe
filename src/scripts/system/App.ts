@@ -4,6 +4,7 @@ import { PixiPlugin } from 'gsap/PixiPlugin';
 import { Loader } from './Loader';
 import { ScenesManager } from './ScenesManager';
 import { EventEmitter } from 'events';
+import { Input } from './Input';
 
 interface Config {
     [key: string]: any;
@@ -19,7 +20,8 @@ class GameApplication extends EventEmitter {
     async run(config: Config): Promise<void> {
         gsap.registerPlugin(PixiPlugin);
         PixiPlugin.registerPIXI(PIXI);
-    
+        Input.initialize();
+
         this.config = config;
         this.app = new PIXI.Application();
     

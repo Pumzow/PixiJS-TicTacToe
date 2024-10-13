@@ -1,8 +1,10 @@
 export class Component {
     gameObject: GameObject;
+    transform: Transform;
 
     constructor(gameObject: GameObject) {
         this.gameObject = gameObject;
+        this.transform = this.gameObject.transform;
     }
 }
 
@@ -42,6 +44,7 @@ export class Vector3 {
 export class PixiBehaviour extends Component {
     constructor(gameObject: GameObject) {
         super(gameObject);
+        this.start();
     }
 
     start(): void {}

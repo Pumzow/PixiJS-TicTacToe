@@ -65,17 +65,17 @@ export enum Keycode {
     F12 = "F12",
 
     // Symbols
-    Backquote = "Backquote",    // ` ~
-    Minus = "Minus",            // - _
-    Equal = "Equal",            // = +
-    BracketLeft = "BracketLeft", // [ {
+    Backquote = "Backquote",       // ` ~
+    Minus = "Minus",               // - _
+    Equal = "Equal",               // = +
+    BracketLeft = "BracketLeft",   // [ {
     BracketRight = "BracketRight", // ] }
-    Backslash = "Backslash",    // \ |
-    Semicolon = "Semicolon",    // ; :
-    Quote = "Quote",            // ' "
-    Comma = "Comma",            // , <
-    Period = "Period",          // . >
-    Slash = "Slash",            // / ?
+    Backslash = "Backslash",       // \ |
+    Semicolon = "Semicolon",       // ; :
+    Quote = "Quote",               // ' "
+    Comma = "Comma",               // , <
+    Period = "Period",             // . >
+    Slash = "Slash",               // / ?
 
     // Control keys
     Escape = "Escape",
@@ -87,7 +87,7 @@ export enum Keycode {
     ControlRight = "ControlRight",
     AltLeft = "AltLeft",
     AltRight = "AltRight",
-    MetaLeft = "MetaLeft",  // Windows key on Windows or Command key on Mac
+    MetaLeft = "MetaLeft",   // Windows key on Windows or Command key on Mac
     MetaRight = "MetaRight", // Right Command key on Mac or Windows key on Windows
     Space = "Space",
     Enter = "Enter",
@@ -106,7 +106,7 @@ export enum Keycode {
     ArrowRight = "ArrowRight",
 
     // Numpad control
-    NumpadAdd = "NumpadAdd",          // +
+    NumpadAdd = "NumpadAdd",           // +
     NumpadSubtract = "NumpadSubtract", // -
     NumpadMultiply = "NumpadMultiply", // *
     NumpadDivide = "NumpadDivide",     // /
@@ -125,6 +125,7 @@ export enum Keycode {
 
 export class Input {
     private static keys: { [key: string]: boolean } = {};
+    private static previousKeys: { [key: string]: boolean } = {};
 
     public static initialize(): void {
         window.addEventListener('keydown', (event) => {
@@ -134,9 +135,23 @@ export class Input {
         window.addEventListener('keyup', (event) => {
             Input.keys[event.code] = false;
         });
+
+        console.log("Input initialized.");
     }
 
-    public static KeyDown(keyCode: Keycode): boolean {
+    public static update(): void {
+        Input.previousKeys = { ...Input.keys };
+    }
+
+    public static KeyHeld(keyCode: string): boolean {
         return !!Input.keys[keyCode];
+    }
+
+    public static KeyPressed(keyCode: string): boolean {
+        return !!Input.keys[keyCode] && !Input.previousKeys[keyCode];
+    }
+
+    public static KeyReleased(keyCode: string): boolean {
+        return !Input.keys[keyCode] && !!Input.previousKeys[keyCode];
     }
 }

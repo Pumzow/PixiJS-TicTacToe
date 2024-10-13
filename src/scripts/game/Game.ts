@@ -1,24 +1,22 @@
 import { App } from "../system/App";
 import { Scene } from "../system/Scene";
-import { GameObject, instantiate } from "../system/Core";
+import { instantiate } from "../system/Core";
 import { Sprite, Ticker } from "pixi.js";
+import { Input } from "../system/Input";
 
 export class Game extends Scene {
     private bg!: Sprite;
-    private gameobjects: GameObject[] = [];
 
-    create(): void {
-        this.gameobjects = [];
+    start(): void {
+        super.start();
 
-        this.createBackground();
+        this.createBackground();  
     }
 
     update(s: Ticker): void {
         super.update(s);
 
-        for (let index = 0; index < this.gameobjects.length; index++) {
-            this.gameobjects[index].update();
-        }
+        Input.update();
     }
 
     createBackground(): void {
