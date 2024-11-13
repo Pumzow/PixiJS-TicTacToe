@@ -24,11 +24,13 @@ class GameApplication extends EventEmitter {
 
         this.config = config;
         this.app = new PIXI.Application();
-    
+
         await this.app.init({
             width: 960,
-            height: 540,
+            height: 960,
         });
+        
+        this.app.renderer.background.color = 0x000000;
     
         document.body.appendChild(this.app.renderer.canvas);
     
